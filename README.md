@@ -1,2 +1,2 @@
-# Cs-Exercise
-Esercizi in linguaggio C#
+# Cpp-Exercise
+Esercizi in linguaggio C++
