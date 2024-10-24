@@ -1,4 +1,5 @@
 #include "Rational.h"
+// #include <algorithm>
 
 Rational::Rational(int num, int den) : n{num}, d(den) {}
 int Rational::num(void) const
@@ -23,12 +24,14 @@ Rational operator+(const Rational &a, const Rational &b) // punto E
     nump = (a.num() * b.den()) + (b.num() * a.den());
     denp = a.den() * b.den();
     return Rational(nump, denp);
+    // return Rational(__gcd(nump, denp));
 }
 
 Rational operator+(const Rational &a, int b)
 {
     int nump = a.num() + (a.den() * b);
     return Rational(nump, a.den());
+    // return Rational(__gcd(nump, denp));
 }
 
 Rational operator-(const Rational &a, const Rational &b) // punto F
@@ -37,12 +40,14 @@ Rational operator-(const Rational &a, const Rational &b) // punto F
     nump = (a.num() * b.den()) - (b.num() * a.den());
     denp = a.den() * b.den();
     return Rational(nump, denp);
+    // return Rational(__gcd(nump, denp));
 }
 
 Rational operator-(const Rational &a, int b)
 {
     int nump = a.num() - (a.den() * b);
     return Rational(nump, a.den());
+    // return Rational(__gcd(nump, denp));
 }
 
 Rational operator*(const Rational &a, const Rational &b) // punto G
@@ -51,11 +56,13 @@ Rational operator*(const Rational &a, const Rational &b) // punto G
     nump = a.num() * b.num();
     denp = a.den() * b.den();
     return Rational(nump, denp);
+    // return Rational(__gcd(nump, denp));
 }
 
 Rational operator*(const Rational &a, int b)
 {
     return Rational(a.num() * b, a.den());
+    // return Rational(__gcd(nump, denp));
 }
 
 Rational operator/(const Rational &a, const Rational &b) // punto H
@@ -64,11 +71,13 @@ Rational operator/(const Rational &a, const Rational &b) // punto H
     nump = a.num() * b.den();
     denp = a.den() * b.num();
     return Rational(nump, denp);
+    // return Rational(__gcd(nump, denp));
 }
 
 Rational operator/(const Rational &a, int b)
 {
     return Rational(a.num(), a.den() * b);
+    // return Rational(__gcd(nump, denp));
 }
 
 Rational operator==(const Rational &a, const Rational &b) // punto I
