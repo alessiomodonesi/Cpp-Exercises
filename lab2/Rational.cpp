@@ -89,12 +89,12 @@ Rational operator/(const Rational &a, int b)
 
 bool operator==(const Rational &a, const Rational &b)
 {
-    return (a.num() * b.den() == b.num() * a.den());
+    return ((double)a.num()/a.den()) == ((double)b.num()/b.den());
 }
 
 bool operator==(const Rational &a, int b)
 {
-    return (a.num() == (b * a.den()));
+    return (a.num()%a.den() == 0) && (a.num()/a.den() == b);
 }
 
 bool operator>(const Rational &a, const Rational &b)
@@ -120,7 +120,7 @@ bool operator<(const Rational &a, int b)
 std::ostream &operator<<(std::ostream &out, const Rational &a)
 {
     if (a.den() == 1)
-        return out << a.num(); // Solo numeratore se denominatore è 1
+        return out << a.num();
     return out << a.num() << '/' << a.den();
 }
 
@@ -129,14 +129,12 @@ double to_double(const Rational &a)
     return ((double)a.num() / (double)a.den());
 }
 
-// Metodo privato per ridurre la frazione al termine minimo
 void Rational::reduce()
 {
     int gcd = std::gcd(n, d);
     n /= gcd;
     d /= gcd;
 
-    // Assicura che il denominatore sia sempre positivo
     if (d < 0)
     {
         n = -n;

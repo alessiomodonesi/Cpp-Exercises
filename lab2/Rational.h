@@ -1,24 +1,24 @@
-#include <stdexcept> // per std::invalid_argument
+#include <stdexcept>
 
 class Rational
 {
 public:
     // Constructors
-    Rational() = default; // Costruttore di default
+    Rational(void);
     Rational(int integer);
     Rational(int num, int den);
 
     // Accessor methods
-    int num() const { return n; }
-    int den() const { return d; }
+    int num(void) const;
+    int den(void) const;
 
     // Assignment operator
     Rational &operator=(const Rational &a);
 
 private:
-    int n{0};      // Numeratore
-    int d{1};      // Denominatore
-    void reduce(); // Metodo privato per ridurre la frazione
+    int n{0};      
+    int d{1};     
+    void reduce();
 };
 
 // helper function
