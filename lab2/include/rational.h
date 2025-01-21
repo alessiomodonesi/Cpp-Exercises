@@ -18,11 +18,11 @@ public:
     // NOTA: questo è possibile sfruttando gli argomenti di default, che
     //       fanno riferimento a due costanti definite in fondo alla classe.
     Rational(int num = kDefaultNumerator, int den = kDefaultDenominator);
-    
+
     // Assignment - gli altri operatori sono implementati come helper function
     // NOTA: l'argomento è passato per copia e non per const reference
     // perché copio solo due int (ed è probabilmente più veloce che sfruttare una reference)
-    Rational& operator=(Rational a);
+    Rational &operator=(Rational a);
 
     // accessors / get functions: stesso nome della variabile
     // mutators / set functions: set_<var name>
@@ -31,38 +31,40 @@ public:
     // NOTA: definite in-class, sono inline (ragionevole per queste funzioni con una sola istruzione)
     int numerator(void) const { return numerator_; }
     int denominator(void) const { return denominator_; }
-    
+
     // Implementano l'invariante secondo cui la frazione è sempre in forma normale
     // (quindi dividono numeratore e denominatore per Gcd
     void set_numerator(int num);
     void set_denominator(int den);
-    
+
     // NOTA: devo fare il cast di numerator_, altrimenti eseguirebbe prima la divisione
     // intera e poi la conversione a double. Convertire il denominatore non serve perché,
     // essendo il primo operando double, il compilatore è costretto a convertire anche il secondo
     // e ad eseguire la divisione tra double.
     // NOTA: implementato in-class, quindi funzione inline - è un cast + una divisione, è ragionevole.
-    double ToDouble(void) const { return static_cast<double> (numerator_) / denominator_; }
-    
+    double ToDouble(void) const { return static_cast<double>(numerator_) / denominator_; }
+
     // Fornisco anche l'interfaccia tramite cast
     // NOTA: all'epoca del laboratorio non sapevate ancora che si potesse fare.
     //       Per questo ho previsto sia la funzione ToDouble che l'overloading del cast,
     //       ma normalmente avrei previsto solo il cast (senza implementare anche ToDouble).
     operator double() const { return ToDouble(); }
-    
+
     // Per la gestione delle eccezioni. Definita qui in fondo perché ho preferito mettere
     // in evidenza i costruttori e l'interfaccia che si usa in condizioni normali (mentre questa classe
     // si usa in condizioni di errore).
-    class DivideByZeroException {};
-    
+    class DivideByZeroException
+    {
+    };
+
 private:
     // Funzione membro privata, usata solo dalle altre funzioni membro
     void normalize(void);
-    
+
     // Notare l'uso di _ alla fine, seguendo la convenzione di Google
     int numerator_;
     int denominator_;
-    
+
     // Default initializers
     // Preferisco definire qui le costanti e usarle nella dichiarazione
     // del costruttore come valori di default
@@ -90,7 +92,7 @@ Rational operator/(Rational a, Rational b);
 // Equality
 bool operator==(Rational a, Rational b);
 // Output to stream - questo non era richiesto dall'esercizio, ma mi è comodo per il debug
-std::ostream& operator<<(std::ostream& os, Rational a);
+std::ostream &operator<<(std::ostream &os, Rational a);
 
 // Le funzioni seguenti sono slegate dalla classe e disponibili all'utente.
 // Questo non costituisce nessun problema. Eventualmente potrebbero essere spostate in un modulo
@@ -100,6 +102,5 @@ std::ostream& operator<<(std::ostream& os, Rational a);
 int Gcd(int a, int b);
 // Least common multiple
 int Lcm(int a, int b);
-
 
 #endif // RATIONAL_H

@@ -15,7 +15,7 @@ void Rational::set_numerator(int num)
 {
     numerator_ = num;
     normalize();
-    
+
     return;
 }
 
@@ -25,7 +25,7 @@ void Rational::set_denominator(int den)
         throw DivideByZeroException();
     denominator_ = den;
     normalize();
-    
+
     return;
 }
 
@@ -41,18 +41,18 @@ void Rational::normalize(void)
         numerator_ /= gcd;
         denominator_ /= gcd;
     }
-    
+
     return;
 }
 
 // Assignment
-Rational& Rational::operator=(Rational a)
+Rational &Rational::operator=(Rational a)
 {
     // NOTA: essendo una funzione membro, accedo direttamente ai membri privati
     // NOTA: copio senza verifiche perché a rispetta gli invarianti
     numerator_ = a.numerator_;
     denominator_ = a.denominator_;
-    
+
     return *this;
 }
 
@@ -64,7 +64,7 @@ Rational operator+(Rational a, Rational b)
     int common_den = Lcm(a.denominator(), b.denominator());
     int num_a_common = a.numerator() * (common_den / a.denominator());
     int num_b_common = b.numerator() * (common_den / b.denominator());
-    
+
     // Sfrutto l'invariante: la frazione sarà normalizzata nel costruttore
     // Stesso ragionamento negli operator seguenti
     return Rational(num_a_common + num_b_common, common_den);
@@ -78,7 +78,7 @@ Rational operator-(Rational a, Rational b)
     int common_den = Lcm(a.denominator(), b.denominator());
     int num_a_common = a.numerator() * (common_den / a.denominator());
     int num_b_common = b.numerator() * (common_den / b.denominator());
-    
+
     return Rational(num_a_common - num_b_common, common_den);
 }
 
@@ -89,7 +89,7 @@ Rational operator*(Rational a, Rational b)
     // eventuali fattori comuni tra:
     // a.numerator() e b.denominator()
     // a.denominator() e b.numerator()
-    return Rational (a.numerator() * b.numerator(), a.denominator() * b.denominator());
+    return Rational(a.numerator() * b.numerator(), a.denominator() * b.denominator());
 }
 
 // Division
@@ -111,11 +111,10 @@ bool operator==(Rational a, Rational b)
 }
 
 // Output to stream - questo non era richiesto dall'esercizio, ma mi è comodo per il debug
-std::ostream& operator<<(std::ostream& os, Rational a)
+std::ostream &operator<<(std::ostream &os, Rational a)
 {
     return os << a.numerator() << "/" << a.denominator();
 }
-
 
 // Greatest common divisor
 // Algoritmo euclideo + modulo operator
@@ -128,7 +127,7 @@ int Gcd(int a, int b)
 {
     if (b == 0)
         return a;
-        
+
     return Gcd(b, a % b);
 }
 
